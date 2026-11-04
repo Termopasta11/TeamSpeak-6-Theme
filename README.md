@@ -1,6 +1,7 @@
 # Angel Glass — TeamSpeak 6 Theme
 
 A custom dark glass-inspired theme for TeamSpeak 6.
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/dd7642f8-e4d9-42c6-bd10-549863a7f651" />
 
 ## Installation
 
