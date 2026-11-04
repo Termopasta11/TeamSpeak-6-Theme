@@ -1,0 +1,164 @@
+/* ==========================================================
+   Angel Glass — TeamSpeak 6 theme  (v1.1)
+   Тёмное стекло + обои на весь клиент.
+   Теперь опирается на настоящие переменные и классы клиента
+   (--tsv-*, .tsv-*, .ts-*), которые используют другие темы.
+   ========================================================== */
+
+:root {
+    /* ---- Настройки стекла (крути под себя) ---- */
+    --ag-blur: 14px;
+    --ag-radius: 10px;
+    --ag-glass: rgba(30, 22, 17, 0.58);
+    --ag-glass-soft: rgba(30, 22, 17, 0.40);
+    --ag-glass-strong: rgba(30, 22, 17, 0.80);
+    --ag-border: rgba(255, 255, 255, 0.08);
+    --ag-text: #e8e3dd;
+
+    /* ---- Акцент (тёплый песочный из палитры картинки) ---- */
+    --custom-color-accent-light: #d9a273;
+    --custom-color-accent-dark: #b9814f;
+    --custom-color-accent-light-t: rgba(217, 162, 115, 0.5);
+    --custom-color-accent-dark-t: rgba(185, 129, 79, 0.5);
+    --custom-color-slider1: #d9a273;
+    --custom-color-slider2: #e8cfae;
+
+    /* ---- Родные переменные клиента -> полупрозрачные ---- */
+    --tsv-bg: var(--ag-glass);
+    --tsv-shaded-bg: var(--ag-glass-soft);
+    --tsv-contrast-bg: var(--ag-glass);
+    --tsv-chat-remote-bg: rgba(40, 37, 42, 0.60);
+    --tsv-chat-self-bg: rgba(110, 78, 48, 0.55);
+    --tsv-tint: var(--custom-color-accent-dark);
+    --tsv-tint2: var(--custom-color-accent-light);
+    --ts-primary-accent-color: var(--custom-color-accent-light);
+    --tsv-border-radius: var(--ag-radius);
+    --tsv-border-radius-large: 14px;
+}
+
+/* ---------- ФОН ---------- */
+/* Картинка background.jpg лежит рядом с этим файлом.
+   Не показывается — запусти embed-background.py. */
+html,
+body {
+    background-color: #0d0c0e !important;
+    background-image:
+        linear-gradient(rgba(10, 9, 11, 0.30), rgba(10, 9, 11, 0.30)),
+        url("background.jpg") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    color: var(--ag-text);
+}
+
+/* Всё, что лежало непрозрачным слоем поверх фона — убираем */
+body > div,
+#app,
+#root,
+.tsv-window,
+.tsv-view,
+.ts-about-settings.tsv-view,
+.ts-privacy-settings-view.tsv-view,
+.ts-identities-root.tsv-view,
+.ts-notifications-root.tsv-view,
+.ts-keybinds-settings.tsv-view,
+.ts-audio-settings.tsv-view,
+.ts-appearance-settings.tsv-view,
+.ts-account-settings-view.tsv-view {
+    background: transparent !important;
+}
+
+/* ---------- СТЕКЛЯННЫЕ ПАНЕЛИ ---------- */
+.tsv-bar,
+.ts-tree,
+.tsv-header::before,
+.tsv-dashboard-widget,
+.ts-card,
+.tsv-search-bar,
+.tsv-location-bar,
+.ts-chat-input-container-content,
+.tsv-client-badge-showcase,
+.tsv-client-info-groups-container,
+.tsv-server-info-default-banner,
+.ts-widget {
+    background: var(--ag-glass) !important;
+    backdrop-filter: blur(var(--ag-blur)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--ag-blur)) saturate(120%);
+    border-radius: var(--ag-radius);
+}
+
+/* Дерево каналов: плитки каналов прозрачнее */
+.ts-server-tree-item-background-no-image {
+    background: transparent !important;
+    opacity: 0.6;
+}
+
+/* Активная вкладка */
+.tsv-tab-item.tsv-bar-item.tsv-tab-item-active {
+    background: var(--custom-color-accent-dark-t) !important;
+    border-radius: var(--ag-radius);
+}
+
+/* Баннер сервера: пусть обои просвечивают */
+.tsv-view-background::after {
+    opacity: 0.35 !important;
+}
+
+/* ---------- МЕЛОЧИ ---------- */
+::selection {
+    background: var(--custom-color-accent-dark-t);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--custom-color-accent-dark);
+}
+
+/* ---------- ЛЕВЫЕ КОЛОНКИ (v1.2, широкие селекторы) ----------
+   Классы левых панелей мне неизвестны, поэтому ловим всё,
+   в имени класса чего есть sidebar / navigation / server-list. */
+[class*="sidebar" i],
+[class*="side-bar" i],
+[class*="navigation" i],
+[class*="server-list" i],
+[class*="serverlist" i],
+[class*="left-panel" i],
+[class*="connection-list" i] {
+    background: var(--ag-glass) !important;
+    backdrop-filter: blur(var(--ag-blur)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--ag-blur)) saturate(120%);
+}
+
+/* ---------- ВТОРАЯ КОЛОНКА: серверы / каналы (v1.3) ----------
+   Тоже догадки по частям названия класса. Тёплый коричневый тон. */
+[class*="tab-bar" i],
+[class*="tabbar" i],
+[class*="tab-list" i],
+[class*="server-tabs" i],
+[class*="server-bar" i],
+[class*="channel-list" i],
+[class*="connection" i][class*="list" i],
+[class*="rail" i],
+[class*="dock" i] {
+    background: rgba(44, 31, 22, 0.55) !important;
+    backdrop-filter: blur(var(--ag-blur)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--ag-blur)) saturate(120%);
+}
+
+/* Лагает размытие — уменьши --ag-blur до 6–8px или поставь 0. */
+.ts-server-tree-scroller {
+    background: rgba(145, 112, 83, 0.88) !important;
+    backdrop-filter: blur(14px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+}
